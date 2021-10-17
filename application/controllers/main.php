@@ -7,14 +7,32 @@ class Main extends CI_Controller
   {
     parent::__construct();
     $this->load->model('Package_model', 'package_model');
+    $this->load->model('student_m');
+    $this->load->model('schedule_m');
   }
 
   // READ
   function index()
   {
-    $data['product'] = $this->package_model->get_products();
-    $data['package'] = $this->package_model->get_packages();
-    $this->load->view('main_v', $data);
+    $products = $this->package_model->get_products();
+    $packages = $this->package_model->get_packages();
+
+    $students = $this->student_m->st_gets();
+
+    $this->load->view(
+      'main_v',
+      array(
+        'students' => $students,
+        'product' => $products,
+        'package' => $packages
+      )
+    );
+  }
+
+  function student_data()
+  {
+    $data = $this->student_m->student_list();
+    echo json_encode($data);
   }
 
   //CREATE

@@ -12,7 +12,7 @@
   <div class="container">
     <h1>Package Lists</h1>
     <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addNewModal">Add New Package</button><br />
-    <table class="table table-striped">
+    <table class="table table-striped" id="mydata">
       <thead>
         <tr>
           <th>#</th>
@@ -158,6 +158,38 @@
   <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js'); ?>"></script>
   <script type="text/javascript">
     $(document).ready(function() {
+      show_product(); // call function show all product
+
+      $('#mydata').dataTable();
+
+      //function show all product
+      function show_product() {
+        $.ajax({
+          type: 'ajax',
+          url: '<?php echo site_url('product/product_data') ?>',
+          async: true,
+          dataType: 'json',
+          success: function(data) {
+            var html = '';
+            var i;
+            for (i = 0; i < data.length; i++) {
+              html += '<tr>' +
+                '<td>' + data[i].product_code + '</td>' +
+                '<td>' + data[i].product_name + '</td>' +
+                '<td>' + data[i].product_price + '</td>' +
+                '<td style="text-align:right;">' +
+                '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-product_code="' + data[i].product_code + '" data-product_name="' + data[i].product_name + '" data-price="' + data[i].product_price + '">Edit</a>' + ' ' +
+                '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-product_code="' + data[i].product_code + '">Delete</a>' +
+                '</td>' +
+                '</tr>';
+            }
+            $('#show_data').html(html);
+          }
+
+        });
+      }
+
+
       $('.bootstrap-select').selectpicker();
 
       //GET UPDATE
