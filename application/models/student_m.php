@@ -19,17 +19,17 @@ class Student_m extends CI_Model
 		return $st_id;
 	}
 
-	function student_list()
+	function student_list($grade1)
 	{
-    $grade1=$this->input->post('grade1');
 		$this->db->select('*');
 		$this->db->order_by('flag', 'ASC');
 		$this->db->order_by('class_name', 'ASC');
 		$this->db->order_by('grade1', 'DESC');
 		$this->db->order_by('grade2', 'ASC');
+		$this->db->where('flag', 1);
+
 		if ($grade1) {
 			$this->db->where('grade1', $grade1);
-			$this->db->where('flag', 1);
 		}
 		$result = $this->db->get('student')->result();;
 		//$result =  $this->db->query("SELECT * FROM student")->result();
@@ -84,11 +84,13 @@ class Student_m extends CI_Model
 	function st_get_count($option)
 	{
 		$this->db->select('count(*) as cnt');
-		$result = $this->db->get_where('student', 
-						array(
-									'grade1' => $option,
-									'flag' => '1'
-									))->row();
+		$result = $this->db->get_where(
+			'student',
+			array(
+				'grade1' => $option,
+				'flag' => '1'
+			)
+		)->row();
 		return $result;
 	}
 

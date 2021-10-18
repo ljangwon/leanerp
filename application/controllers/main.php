@@ -29,9 +29,10 @@ class Main extends CI_Controller
     );
   }
 
-  function student_data()
+  function student_list()
   {
-    $data = $this->student_m->student_list();
+    $grade1 = $this->input->post('grade1');
+    $data = $this->student_m->student_list($grade1);
     echo json_encode($data);
   }
 

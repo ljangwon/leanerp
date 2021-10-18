@@ -8,10 +8,9 @@
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.css'); ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap-select.css'); ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/dataTables.bootstrap4.min.css'); ?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/jquery.dataTables.min.css'); ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/my.css'); ?>">
-  <
-
-</head>
+  < </head>
 
 <body>
 
@@ -87,7 +86,7 @@
     <!-- row 2  start nav + main -->
     <div class="row">
 
-      <div class="col-3 side-menu">
+      <div class="col-4 side-menu">
         <?php $weekString = array("일", "월", "화", "수", "목", "금", "토"); ?>
         <div class="fw-bold text-center"> ( Today: <?= date("Y-m-d", time()) ?> <?= $weekString[date('w')] ?> )
         </div>
@@ -104,7 +103,7 @@
           <span>전체 학생 리스트 </span>
         </h6>
 
-        <table class="table table-striped" id="mydata">
+        <table class="display" style="width:100%" id="mydata">
           <thead>
             <tr>
               <th>Student Name</th>
@@ -120,7 +119,7 @@
 
       </div>
 
-      <main class="col-9">
+      <main class="col-8">
         <!-- Main start -->
         <div class="row">
           <!-- default contents3  -->
@@ -266,9 +265,9 @@
               </div>
             </div>
           </form>
-
         </div>
         <!-- row 3 end -->
+
       </Main>
 
     </div>
@@ -287,15 +286,15 @@
     $(document).ready(function() {
       show_product(); //call function show all product
 
-      $('#mydata').dataTable();
-
       //function show all product
       function show_product() {
         $.ajax({
-          type: 'ajax',
-          url: '<?php echo site_url('main/student_data') ?>',
+          type: 'POST',
+          url: '<?php echo site_url('main/student_list') ?>',
           async: true,
-          data: { grade1 : "초등" },
+          data: {
+            grade1: '초등'
+          },
           dataType: 'json',
           success: function(data) {
             var html = '';
@@ -306,12 +305,16 @@
                 '<td>' + data[i].grade1 + data[i].grade2 + '</td>' +
                 '<td>' + data[i].class_name + '</td>' +
                 '<td style="text-align:right;">' +
-                '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-product_code="' + data[i].product_code + '" data-product_name="' + data[i].product_name + '" data-price="' + data[i].product_price + '">Edit</a>' + ' ' +
-                '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-product_code="' + data[i].product_code + '">Delete</a>' +
-                '</td>' +
-                '</tr>';
+                '<a class="nav-link" href="http://localhost/lmath/index.php/dashboard/dashboard_get/' + data[i].id + '"> Detail</a>'
+              '</td>' +
+              '</tr>';
             }
+
             $('#show_data').html(html);
+            $('#mydata').DataTable({
+              "scrollY": 300,
+              "paging": false
+            });
           }
         });
       }
@@ -357,7 +360,6 @@
         $('#DeleteModal').modal('show');
         $('[name="delete_id"]').val(package_id);
       });
-
     });
   </script>
 
