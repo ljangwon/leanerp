@@ -7,7 +7,9 @@
   <!--Load CSS File-->
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.css'); ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap-select.css'); ?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/dataTables.bootstrap4.min.css'); ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/my.css'); ?>">
+  <
 
 </head>
 
@@ -279,7 +281,7 @@
   <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.3.1.min.js'); ?>"></script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap.bundle.js'); ?>"></script>
   <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js'); ?>"></script>
-  <script type="text/javascript" src="<?php echo base_url().'assets/js/datatables.js'?>"></script>
+  <script type="text/javascript" src="<?php echo base_url('assets/js/datatables.js'); ?>"></script>
 
   <script type="text/javascript">
     $(document).ready(function() {
