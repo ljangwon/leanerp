@@ -293,7 +293,7 @@
           url: '<?php echo site_url('main/student_list') ?>',
           async: true,
           data: {
-            grade1: '초등'
+
           },
           dataType: 'json',
           success: function(data) {
@@ -313,7 +313,9 @@
             $('#show_data').html(html);
             $('#mydata').DataTable({
               "scrollY": 300,
-              "paging": false
+              "paging": false,
+              "ordering": false,
+              "processing": true
             });
           }
         });
@@ -338,7 +340,6 @@
           },
           cache: false,
           success: function(data) {
-            console.log(data);
             var item = data;
             var val1 = item.replace("[", "");
             var val2 = val1.replace("]", "");

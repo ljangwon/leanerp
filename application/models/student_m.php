@@ -27,6 +27,9 @@ class Student_m extends CI_Model
 		$this->db->order_by('grade1', 'DESC');
 		$this->db->order_by('grade2', 'ASC');
 		$this->db->where('flag', 1);
+		$day = date('w');
+		$this->db->where('class_day1', $day);
+		$this->db->or_where('class_day2', $day);
 
 		if ($grade1) {
 			$this->db->where('grade1', $grade1);
