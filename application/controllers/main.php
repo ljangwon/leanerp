@@ -6,7 +6,6 @@ class Main extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    $this->load->model('Package_model', 'package_model');
     $this->load->model('student_m');
     $this->load->model('schedule_m');
   }
@@ -14,8 +13,6 @@ class Main extends CI_Controller
   // READ
   function index()
   {
-    $products = $this->package_model->get_products();
-    $packages = $this->package_model->get_packages();
 
     $students = $this->student_m->st_gets();
 
@@ -23,8 +20,6 @@ class Main extends CI_Controller
       'main_v',
       array(
         'students' => $students,
-        'product' => $products,
-        'package' => $packages
       )
     );
   }
