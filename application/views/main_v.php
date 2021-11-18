@@ -139,7 +139,43 @@
   <script type="text/javascript" src="<?php echo base_url('assets/js/datatables.js'); ?>"></script>
 
   <script type="text/javascript">
-    $(document).ready(function() {}
+    $(document).ready(function() {
+      show_student(); //call function show all payment
+
+$('#mydata').dataTable();
+
+//function show all product
+function show_student() {
+  $.ajax({
+    type: 'ajax',
+    url: '<?php echo site_url('payment/payment_data') ?>',
+    async: true,
+    dataType: 'json',
+    success: function(data) {
+      var html = '';
+      var i;
+      for (i = 0; i < data.length; i++) {
+        html += '<tr>' +
+          '<td>' + (i + 1) + '</td>' +
+          '<td>' + data[i].id + '</td>' +
+          '<td>' + data[i].month + '</td>' +
+          '<td>' + data[i].st_id + '</td>' +
+          '<td>' + data[i].name + '</td>' +
+          '<td>' + data[i].class_name + '</td>' +
+          '<td>' + data[i].pay_status + '</td>' +
+          '<td style="text-align:right;">' +
+          '<a href="javascript:void(0);" class="btn btn-info btn-sm pay_edit" data-payment_id="' + data[i].id + '">수납</a>' + ' ' +
+          '<a href="javascript:void(0);" class="btn btn-info btn-sm item_edit" data-payment_id="' + data[i].id + '" data-month="' + data[i].month + '" data-st_id="' + data[i].st_id + '" data-st_name="' + data[i].name + '" data-class_name="' + data[i].class_name + '"data-pay_status="' + data[i].pay_status + '">Edit</a>' + ' ' +
+          '<a href="javascript:void(0);" class="btn btn-danger btn-sm item_delete" data-payment_id="' + data[i].id + '" data-month="' + data[i].month + '" data-st_name="' + data[i].name + '">Delete</a>' +
+          '</td>' +
+          '</tr>';
+      }
+      $('#show_data').html(html);
+    }
+
+  });
+}
+    }
   </script>
 
 </body>
